@@ -94,7 +94,7 @@ export default function Navbar({miniMenu, setMiniMenu, action, searchVideos, set
               <div className={miniMenu ? 'dropdown' : 'hide'} >
               
                   <ul>
-                    <li onClick={()=>setMiniMenu(false)} className='disabled'><strong>Hi..,{ currentUser.username}</strong></li>
+                    <li onClick={()=>setMiniMenu(false)} className='disabled'><strong>Hi...,{ currentUser.username}</strong></li>
                     <hr></hr>
                     <Link to="updateprofile"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
                     <li onClick={()=>setMiniMenu(false)} >Manage Profile</li>
