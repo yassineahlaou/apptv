@@ -1,0 +1,50 @@
+@import "../scrollbars.scss";
+@import "../global.scss";
+.app{
+    height: 100%;
+    
+    
+
+   .cont{
+   
+        width: 100%;
+    
+        height: 100%;
+       
+        
+        background-color: white;
+    //position: relative;
+    display: flex;
+   // padding-top: 3.5cm;
+    
+       // overflow-y: auto;
+
+        position: absolute;
+  //top: 70px;
+ 
+ // bottom: 0.4px;
+   
+  overflow-y: scroll;
+
+  
+        &.active{
+            filter: brightness(50%);
+            transition: all 0.5s ease;
+        }
+
+        @include mobile{
+
+            height: 100%;
+        }
+    
+
+   
+
+        
+   }
+
+   
+
+   
+}
+

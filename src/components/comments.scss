@@ -1,0 +1,86 @@
+.comments{
+    display: flex;
+            margin-top: 20px;
+            padding-top: 3mm;
+            gap: 12px;
+            width: 100%;
+            padding-bottom: 9mm;
+
+            .channel{
+                width: 40px;
+                height: 36px;
+                border-radius: 50%;
+                background-color: gray;
+            }
+            .process{
+                width: 100%;
+                align-items: center;
+                flex-direction: column;
+                
+                textarea{
+                    width: 99%;
+                    resize: none;
+                    height: 30px;
+                    font-size: 16px;
+                    border:none;
+                    border-bottom: 1px solid gray;
+                   
+                    outline: none;
+                    transition: all 0.1s linear;
+
+                    &:focus{
+                        border-bottom: 2px solid black  ;
+
+
+                    }
+                    &.dark{
+                        color: white;
+                        background-color: black;
+                        &:focus{
+                            border-bottom: 2px solid white  ;
+    
+    
+                        }
+                    }
+                    
+                    
+                }
+                .buttons{
+                    padding-top: 1.5mm;
+                    .add{
+                        background-color: #e5e5e5;
+                        border: none;
+                        font-size: 20px;
+                        padding: 12px 20px;
+                        margin: 5px;
+                        border-radius: 10px;
+                        cursor: pointer;
+                    }
+                    .cancel{
+                        background-color: transparent;
+                        border: none;
+                        font-size: 17px;
+                        margin: 5px;
+                        cursor: pointer;
+                        &.dark{
+                            color: white;
+                        }
+                    }
+                    
+                   
+                   
+
+                   &.active{
+                    float: right;
+                    
+                    
+                   }
+                   &.inactive{
+                    display: none;
+                   }
+                        
+                }
+            }
+
+            
+    }

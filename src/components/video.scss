@@ -1,0 +1,193 @@
+
+@import "../../scrollbars.scss";
+@import "../../global.scss";
+.video{
+    display: flex;
+    justify-content: space-around;
+    //flex-wrap: wrap;
+    padding-top: 3cm;
+    
+    
+    width: 100%;
+    padding-bottom: 2cm;
+    height: fit-content;
+
+    @include mobile{
+        flex-direction: column;
+        justify-content: none;
+        align-items: center;
+    }
+   
+    
+
+    
+    
+
+    .content{
+        width: 60%;
+        
+        padding-left: 1.5cm;
+        @include mobile{
+            width: 95%;
+            padding-left:0;
+            display: flex;
+            flex-direction: column;
+        }
+        video{
+            max-height: 400px;
+            width: 100%;
+            //object-fit: cover
+        }
+
+        
+       
+        .intro{
+            display: flex;
+            justify-content: space-between;
+            @include mobile{
+                
+                flex-direction: column;
+            }
+            .info{
+                h1{
+                    font-size: 16px;
+                    padding-bottom: 0.3cm;
+                   
+                    
+                }
+                }
+            
+                
+                .buttons{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 20px;
+                    @include mobile{
+                        gap: 0;
+                    }
+                    button{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: none;
+                        background-color: transparent;
+                        cursor: pointer;
+                        .icon{
+                            margin: 5px;
+                        }
+
+                        &.dark{
+                            color: white;
+                        }
+                        
+                    }
+                
+                }
+            }
+        
+        hr{
+            
+                margin: 15px 0px;
+                border: 0.5px solid #4c4c4c ;
+                
+            
+        }
+        .more{
+            display: flex;
+            margin-top: 10px;
+            gap: 12px;
+            width: 100%;
+            justify-content: space-between;
+            @include mobile{
+                gap: 0;
+               
+
+            }
+            .channel{
+                    width: 40px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background-color: gray;
+            }
+            .texts{
+                display: flex;
+                flex-direction: column;
+                width: 75%;
+                h4{
+                    font-size: 14px;
+                }
+                .info{
+                    font-size: 14px;
+                    padding-bottom: 0.5cm;
+                }
+                .description{
+
+               
+                }
+
+            }
+           
+            .unsub{
+                width: 20%;
+                background-color: #e5e5e5;
+                color: black;
+                height: fit-content;
+                font-size: 15px;
+                border-radius: 5%;
+                border: none;
+                padding: 10px 10px;
+                cursor: pointer;
+                @include mobile{
+                    padding:10px 7px;
+                    text-align: center;
+                    //font-size: 1px;
+
+                }
+
+            }
+            .sub{
+                width: 20%;
+                background-color: red;
+                color: white;
+                height: fit-content;
+                font-size: 15px;
+                border-radius: 5%;
+                border: none;
+                padding: 10px 10px;
+                cursor: pointer;
+                @include mobile{
+                    padding:10px 7px;
+                    text-align: center;
+                    //font-size: 1px;
+
+                }
+            }
+        }
+
+       
+       
+    }
+    .recommendation{
+       width: 40%;
+       padding-right: 1.5cm;
+       padding-left: 0.7cm;
+
+
+    }   
+    
+    &.dark{
+        background-color: black;
+        
+        
+        .content h1{
+            color: white;
+        }
+        .content span{
+            color: white;
+        }
+        .content .more .texts{
+            color: white;
+        }
+    }
+}

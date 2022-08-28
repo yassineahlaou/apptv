@@ -1,0 +1,59 @@
+.card{
+    width: 290px;
+    margin-bottom: 45px;
+    cursor: pointer;
+    .vid{
+       
+        img{
+            width: 100%;
+            background-color: gray;
+            height: 202px;
+        }
+        .details{
+            width: 100%;
+            display: flex;
+            margin-top: 10px;
+            gap: 12px;
+           
+                .channel{
+                    width: 12.41%;
+                    height: 36px;
+                    border-radius: 50%;
+                    background-color: gray;
+            
+        }
+        .texts{
+            width: 87.59%;
+            
+            .overflow-wrap{
+                
+               height: fit-content;
+
+                font-size: 16px;
+                
+                
+                
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                  font-weight: bold;
+                
+            }
+            .channelname{
+                font-size: 14px;
+                margin: 9px 0px;
+                
+            }
+            .info{
+                font-size: 14px;
+            }
+
+            &.dark{
+                color: white;
+            }
+        }
+        
+    }
+}
+}
