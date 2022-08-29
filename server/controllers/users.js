@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import User from '../models/User.js';
 import Video from '../models/Video.js';
+import Comment from '../models/Comment.js';
 import bcrypt from 'bcryptjs'
 
 import jwt from 'jsonwebtoken'
@@ -137,12 +138,22 @@ export const googleAuth = async (req, res) => {
 }
 
 export const deleteUser = async (req, res)=>{
-    const userId = req.params.id
-    let foundUser = await User.findById(userId) 
+    const userIdLogged = req.params.id
+    let foundUser = await User.findById(userIdLogged) 
 
-    res.send(`User with id ${userId} is deleted from database`)
+    let comments = await Comment.find({userId:userIdLogged})
+    
+    for (var i=0 ; i<comments.length ; i++){
+        await Comment.findByIdAndDelete({_id:comments[i]._id})
+    }
+    let videos = await Video.find({userId: userIdLogged})
+
+    for (var i=0 ; i<videos.length ; i++){
+        await Video.findByIdAndDelete({_id:videos[i]._id})
+    }
+    res.send(`User with id ${userIdLogged} is deleted from database`)
    
-    foundUser = await User.findOneAndRemove({_id: userId})
+    foundUser = await User.findOneAndRemove({_id: userIdLogged})
     
 }
 

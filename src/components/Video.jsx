@@ -139,16 +139,18 @@ export default function Video({isDark, setDark}) {
       <div className="content">
         
         <video  src={currentVideo?.videoUrl}  controls> </video>
-       <div className='intro'>
         <div className="info">
         
-          <h1>{currentVideo?.title}</h1>
+        <h1>{currentVideo?.title}</h1>
+        </div>
+       <div className='intro'>
+       
           <span >
           {currentVideo?.views} views . {format(currentVideo?.createdAt)}
         
 
           </span>   
-          </div>
+         
          
         
            

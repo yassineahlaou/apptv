@@ -74,6 +74,12 @@ export default function Login({isDark, setDark, setLogged, logged}) {
   const registerProcess = async(e)=>{
     e.preventDefault()
     try{
+      if(inputs.profileimg === undefined){
+       
+        setInputs(inputs.profileimg = "../assets/avatar.jpeg")
+        //console.log(inputs.profileimg)
+        
+      }
       console.log(inputs)
     await axios.post("/user/register", {...inputs})
       setMessage("Welcome Aboard! Login Now to Use this app!")

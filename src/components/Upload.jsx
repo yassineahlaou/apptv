@@ -4,6 +4,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState , useEffect} from "react";
 import './upload.scss';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 import { UploadFile } from '@mui/icons-material';
 import axios from 'axios'
 import { Link } from "react-router-dom";
@@ -18,7 +20,7 @@ const Upload = props  =>  {
     const [videoPerc, setVideoPerc] = useState(0);
     const [inputs, setInputs] = useState({});
 
-    const [upload, setUpload] = useState(false)
+    const [uploaded, setUploaded] = useState(false)
    
     
     const [tags, setTags] = useState([]);
@@ -96,7 +98,16 @@ const Upload = props  =>  {
         const res = await axios.post("/video/add", {...inputs, tags})
         
        navigate(`/video/${res.data._id}`)
-       setUpload(true)
+       setUploaded(true)
+
+       const MySwal = withReactContent(Swal)
+       MySwal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Video Uploaded Succesfully',
+        showConfirmButton: false,
+        timer: 1500
+      })
         }
         catch(error){
             console.log(error)
@@ -106,21 +117,12 @@ const Upload = props  =>  {
 
       }
   return (
-    <div className='upload'>
+    
+    <div className={!uploaded ? 'uploadPop' : 'hide'}>
         <div className="wrapper">
         <CloseIcon className='icon' onClick={props.handleClose} ></CloseIcon>
 
-        {upload ? (<div className='uploadSuccess'>
-            <h1 >Video Uploaded Succesfully</h1>
-            <div class="success-checkmark">
-                <div class="check-icon">
-                    <span class="icon-line line-tip"></span>
-                    <span class="icon-line line-long"></span>
-                    <div class="icon-circle"></div>
-                    <div class="icon-fix"></div>
-                </div>
-            </div>
-            </div>) : (<><h1>Upload New Video</h1>
+   <><h1>Upload New Video</h1>
           <label>Video</label>
           {videoPerc > 0 ? ("Uploading:" + Math.round(videoPerc,2) + "%") : (<input type="file"  accept="video/*" onChange={(e) => setVideo(e.target.files[0])}></input>)}
           
@@ -129,7 +131,7 @@ const Upload = props  =>  {
           <input type="text"  placeholder='tags, separate theme with comma' onChange={handleTags}></input>
           <label>Image</label>
           {imgPerc > 0 ? (("Uplaoding :" + Math.round(imgPerc,2) + "%")) : (<input type="file"  accept="image/*" onChange={(e) => setImage(e.target.files[0])}></input>)}
-          <button type="submit" onClick={handleUpload}>Upload</button></>)}
+          <button type="submit" onClick={handleUpload}>Upload</button></>
         </div>
     </div>
   )

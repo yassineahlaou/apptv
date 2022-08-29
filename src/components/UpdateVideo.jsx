@@ -2,6 +2,8 @@ import React from 'react'
 
 import './updatevideo.scss'
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content'
 import CloseIcon from '@mui/icons-material/Close';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useState , useEffect} from "react";
@@ -19,7 +21,7 @@ const UpdateVideo = props => {
 
     const dispatch = useDispatch()
     const {currentVideoUpdate} = useSelector((state)=>state.video)
-    console.log(currentVideoUpdate)
+    //console.log(currentVideoUpdate)
     useEffect(()=>{
     const getVideo = async()=>{
         const resVideo = await axios.get(`/video/find/${props.videoId}`)
@@ -61,7 +63,7 @@ const UpdateVideo = props => {
         
         
       };
-      console.log(tags)
+      //console.log(tags)
      
      
       
@@ -138,6 +140,14 @@ const UpdateVideo = props => {
        dispatch(updateVideo(resVidUp.data))
       
        setUpdate(true)
+       const MySwal = withReactContent(Swal)
+       MySwal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Video Updated Succesfully',
+        showConfirmButton: false,
+        timer: 1500
+      })
        
         }
         catch(error){
@@ -150,21 +160,11 @@ const UpdateVideo = props => {
 
   return (
     
-    <div className='updatevideo'>
+    <div className={ !update ? 'updatevideo' : 'hide'}>
         <div className="wrapper">
         <CloseIcon className='icon' onClick={props.handleClose} ></CloseIcon>
 
-        {update ? (<div className='uploadSuccess'>
-            <h1 >Video Updated Succesfully</h1>
-            <div className="success-checkmark">
-                <div className="check-icon">
-                    <span className="icon-line line-tip"></span>
-                    <span className="icon-line line-long"></span>
-                    <div className="icon-circle"></div>
-                    <div className="icon-fix"></div>
-                </div>
-            </div>
-            </div>) : (<><h1>Update Video</h1>
+        <><h1>Update Video</h1>
           
           
           <input type="text" placeholder='title' name="title" defaultValue={video.title} onChange={handleChange} ></input>
@@ -172,7 +172,7 @@ const UpdateVideo = props => {
           <input type="text"  placeholder='tags, separate theme with comma' defaultValue={video.tags} onChange={handleTags}></input>
           <label>Image</label>
           {imgPerc > 0 ? (("Uplaoding :" + Math.round(imgPerc,2) + "%")) : (<input type="file"  accept="image/*" onChange={(e) => setImage(e.target.files[0])}></input>)}
-          <button type="submit" onClick={handleUpdate}>Update</button></>)}
+          <button type="submit" onClick={handleUpdate}>Update</button></>
         </div>
     </div>
    

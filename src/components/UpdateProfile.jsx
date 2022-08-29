@@ -4,24 +4,27 @@ import './updateprofile.scss'
 //import AnimatedNumbers from "react-animated-numbers";
 //import AnimatedNumber from 'react-animated-number';
 
+import Swal from 'sweetalert2'
 
+import withReactContent from 'sweetalert2-react-content'
 
 import app from '../firebase.js'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import { useState , useEffect} from "react";
 import axios from 'axios'
-
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import CardVideoEdit from './CardVideoEdit';
 import { updateProfile } from '../redux/userSlice';
+import { getVideos } from '../redux/videoSlice'
 
 export default function UpdateProfile({action , isDark, setDark}) {
 
   const {videosAfterDelete} = useSelector((state)=>state.video)
   const {deletedVideo} = useSelector((state)=>state.video)
    const dispatch = useDispatch()
-  
+    const navigate = useNavigate()
   const [image, setImage] = useState(undefined)
   
   const [imgPerc, setImgPerc] = useState(0);
@@ -30,6 +33,7 @@ export default function UpdateProfile({action , isDark, setDark}) {
   const [updated, setUpdated] = useState()
   const [checked , setChecked] = useState()
   const [afterSlice , setAfterSlice] = useState([])
+
   
  /* const [dislikes, setDislikes] = useState(0);
   const [subs, setSubs] = useState(0);
@@ -41,25 +45,32 @@ export default function UpdateProfile({action , isDark, setDark}) {
   const [videos, setVideos] = useState([])
 
   
+
+  
  
   
     const [inputs, setInputs] = useState({});
-    useEffect(()=>{
+
     const getStates = async ()=>{
-        const resVideos = await axios.get('/video/myvideos')
-        
+      const resVideos = await axios.get('/vIdeo/myvideos')
 
-       
-
-       
-        setVideos(resVideos.data)
-        console.log(videos)
       
-        
+      //Object.keys(deletedVideo).length === 0 && resVideos.data.slice(deletedVideo,1)
+      
+     
+     
+      setVideos(resVideos.data)
+     
+    
+      
 
-    }
+  }
+    useEffect(()=>{
+    
     getStates()
-},[])
+    
+})
+
 
 
 
@@ -165,6 +176,44 @@ let dislikesCounter = 0
     (e.target.checked) ? setChecked(true) : setChecked(false)
   }
 
+  const deleteProfile = async () =>{
+    await axios.delete(`/user/delete/${currentUser._id}`)
+
+  }
+
+  const deleteProcess =  () =>{
+    const MySwal = withReactContent(Swal)
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        try{
+          deleteProfile()
+          navigate('/loginorregister')
+        }
+    
+        catch(error){
+          console.log(error)
+        }
+        Swal.fire(
+          'Deleted!',
+          'Your profile has been deleted.',
+          'success'
+        )
+      }
+    })
+   
+
+
+  }
+
   return (
     <div className={'update ' + (isDark ? 'dark'  : '')}>
         <div className="top">
@@ -182,7 +231,10 @@ let dislikesCounter = 0
             <label><strong>Update Profile Image</strong></label>
             { !updated ? (imgPerc > 0 ? ("Upload Process :" + Math.round(imgPerc,2) + "%") : (<input type="file" className='file'  accept="image/*" onChange={(e) => setImage(e.target.files[0])}></input>) ) : (<input type="file" className='file' accept="image/*" onChange={(e) => setImage(e.target.files[0])}></input>) }
             </div>
+            <div className="buttons">
             <button onClick={updateProcess} type="submit">Update Profile</button>
+            <button onClick={deleteProcess} type="submit" className='del'>Delete Profile</button>
+            </div>
             {errorUp != "" ? (<span className='err'>{errorUp}</span>) : (message!="" ? (<span className='suc'>{message}</span>) : ('') )}
         
          </div>
@@ -222,8 +274,11 @@ let dislikesCounter = 0
         
      
         videos.map(video=>
+          
          <CardVideoEdit key={video._id} videoId = {video._id} video={video} action = {action} isDark={isDark}  setDark={setDark}></CardVideoEdit>
-        )
+       
+         )
+
         }
 
          </div>

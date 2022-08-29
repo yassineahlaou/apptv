@@ -79,7 +79,10 @@
                     }
                 }
                     .hide{display: none;}
-            
+            .buttons{
+                display: flex;
+                justify-content: space-around;
+                gap: 20px;
                 button{
                     background-color: #727272 ;
                     border: none;
@@ -89,7 +92,12 @@
                     margin-bottom: 10px;
                     margin-top: 5px;
                     cursor: pointer;
+                    &.del{
+                        background-color: red;
+                    }
                 }
+            }
+                
                 .err{
                     color: white;
                     background-color: #ff6666 ;
@@ -193,7 +201,11 @@
             margin-top: 2cm;
             flex-wrap: wrap;
             justify-content: space-around;
+            .hide{
+                display: none;
+            }
 
 
         }
+
 }

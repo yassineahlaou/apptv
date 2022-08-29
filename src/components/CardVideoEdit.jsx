@@ -10,6 +10,9 @@ import { format} from "timeago.js";
 import './cardvideoedit.scss';
 import { useState , useEffect} from "react";
 import UpdateVideo from './UpdateVideo';
+
+
+
 import { useSelector, useDispatch } from 'react-redux'
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -18,20 +21,51 @@ import DeleteVideo from './DeleteVideo';
 export default function CardVideoEdit({video, videoId}) {
     const[dotsClicked , setDotsClicked] = useState(false)
     const {currentVideo} = useSelector((state)=>state.video)
-    const {deletedVideo} = useSelector((state) => state.video)
+
     const {currentVideoUpdate} = useSelector((state)=>state.video)
     const [openUpd, setOpenUpd] = useState(false)
-    const [openDel, setOpenDel] = useState(false)
-    const [videoTodeleteId, setVideoToDelete] = useState(false)
+   
+    
     let postUpdate = {}
     video._id == currentVideoUpdate?._id ? postUpdate = currentVideoUpdate : postUpdate = video
-    
+    const dispatch = useDispatch()
     const togglePopupUpd = () => {
         setOpenUpd(!openUpd);
       }
+
+     
+
+      const handleDelete = async () =>{
+        
+        
+        await axios.delete(`/video/delete/${videoId}`)
+        
+        
+        
+        
+
+    }
      
       const togglePopupDel = () => {
-        setOpenDel(!openDel);
+        const MySwal = withReactContent(Swal)
+        MySwal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                    handleDelete()
+              Swal.fire(
+                'Deleted!',
+                'Your Video has been deleted.',
+                'success'
+              )
+            }
+          })
       }
 
 
@@ -43,7 +77,7 @@ export default function CardVideoEdit({video, videoId}) {
   return (
     <>
        
-    <div className={deletedVideo._id != video._id ? ('cardvideoedit ' + (dotsClicked ? 'activeCard' : '')) : ('dis')} >
+    <div className={'cardvideoedit ' + (dotsClicked ? 'activeCard' : '')} >
     
                <img  src={postUpdate.imgUrl} alt=""></img>
                  
@@ -84,7 +118,7 @@ export default function CardVideoEdit({video, videoId}) {
                 </div>   
                 
                 {openUpd && <OutsideClickHandler  onOutsideClick={()=>setOpenUpd(false)}> <UpdateVideo  handleClose={togglePopupUpd} videoId={videoId}/> </OutsideClickHandler>}
-                {openDel && <OutsideClickHandler  onOutsideClick={()=>setOpenDel(false)}> <DeleteVideo  handleClose={togglePopupDel} videoId={videoId}/> </OutsideClickHandler>}
+                
                 
 </>
            

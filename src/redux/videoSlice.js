@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
 export const videoSlice = createSlice({
     name: "video",
  
@@ -59,12 +60,7 @@ export const videoSlice = createSlice({
       state.currentVideoUpdate = action.payload;
      },
 
-     getDeletedVideos : (state,action) =>{
-      state.loading = false;
-      state.deletedVideo = action.payload
-      console.log(state.deletedVideo)
-     }
-
+    
 
      
   
@@ -83,6 +79,6 @@ export const videoSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { fetchStart, fetchSuccess, fetchFailure, like, unlike, dislike, undislike, updateVideo, getDeletedVideos } = videoSlice.actions
+export const { fetchStart, fetchSuccess, fetchFailure, like, unlike, dislike, undislike, updateVideo} = videoSlice.actions
 
 export default videoSlice.reducer

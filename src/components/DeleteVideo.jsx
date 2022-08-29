@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+/*import React, { useState } from 'react'
 import './deletevideo.scss'
 import CloseIcon from '@mui/icons-material/Close';
 import { getDeletedVideos } from '../redux/videoSlice';
@@ -57,4 +57,4 @@ const DeleteVideo = props =>  {
 
 
 
-export default DeleteVideo;
+export default DeleteVideo;*/
