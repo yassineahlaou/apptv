@@ -1,8 +1,9 @@
 import React from 'react'
 import './forgotpassword.scss'
 import { useNavigate } from "react-router-dom";
-
+import { Navigate } from "react-router-dom";
 import { useState , useEffect} from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -13,6 +14,7 @@ export default function ForgotPassword({isDark,setDark}) {
     const [password , setPassword] = useState("")
     const [confirm , setConfirm] = useState("")
     const [error, setError] = useState("")
+    const {currentUser} = useSelector((state)=>state.user)
 
     const navigate = useNavigate()
 
@@ -38,6 +40,11 @@ export default function ForgotPassword({isDark,setDark}) {
 
     }
 
+    if (currentUser == null){
+      return <Navigate replace to="/loginorregister" />; //protect update profile dashboard
+    }
+    else{
+
   return (
     <div className='forgotpassword'>
          <div className="wrapper">
@@ -51,4 +58,5 @@ export default function ForgotPassword({isDark,setDark}) {
 
     </div>
   )
+    }
 }

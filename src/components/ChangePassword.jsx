@@ -3,6 +3,7 @@ import React from 'react'
 import './changepassword.scss'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
+import { Navigate } from "react-router-dom";
 
 import { useState , useEffect} from "react";
 import axios from 'axios'
@@ -66,7 +67,10 @@ export default function ChangePassword({isDark, setDark}) {
 }
 
 
-
+if (currentUser == null){
+  return <Navigate replace to="/loginorregister" />; //protect update profile dashboard
+}
+else{
   return (
     <div className={'changepassword '  + (isDark ? 'dark'  : '')}>
          <div className="wrapper">
@@ -81,4 +85,5 @@ export default function ChangePassword({isDark, setDark}) {
 
     </div>
   )
+}
 }

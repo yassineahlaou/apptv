@@ -3,7 +3,7 @@
 import Menu from './components/Menu';
 import Navbar from './components/Navbar';
 import { useState } from "react";
-
+import { useSelector, useDispatch } from 'react-redux'
 import './app.scss';
 import Main from './components/Main';
 import Video from './components/Video';
@@ -12,7 +12,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate 
+  
   
 } from "react-router-dom";
 import Login from './components/Login';

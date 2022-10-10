@@ -1,5 +1,7 @@
 import React from 'react'
 import './updateprofile.scss'
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 //import AnimatedNumbers from "react-animated-numbers";
 //import AnimatedNumber from 'react-animated-number';
@@ -13,18 +15,23 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 
 import { useState , useEffect} from "react";
 import axios from 'axios'
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import CardVideoEdit from './CardVideoEdit';
 import { updateProfile } from '../redux/userSlice';
 import { getVideos } from '../redux/videoSlice'
 
 export default function UpdateProfile({action , isDark, setDark}) {
+  const navigate = useNavigate();
+
+  const {currentUser} = useSelector((state)=>state.user)
+
+  
 
   const {videosAfterDelete} = useSelector((state)=>state.video)
   const {deletedVideo} = useSelector((state)=>state.video)
    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
   const [image, setImage] = useState(undefined)
   
   const [imgPerc, setImgPerc] = useState(0);
@@ -40,7 +47,7 @@ export default function UpdateProfile({action , isDark, setDark}) {
   const [views, setViews] = useState(0);*/
 
 
-  const {currentUser} = useSelector((state)=>state.user)
+  
   
   const [videos, setVideos] = useState([])
 
@@ -214,6 +221,11 @@ let dislikesCounter = 0
 
   }
 
+  if (currentUser == null){
+    return <Navigate replace to="/loginorregister" />; //protect update profile dashboard
+  }
+  else{
+
   return (
     <div className={'update ' + (isDark ? 'dark'  : '')}>
         <div className="top">
@@ -284,4 +296,5 @@ let dislikesCounter = 0
          </div>
     </div>
   )
+      }
 }
